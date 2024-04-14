@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { lusitana } from '@/app/ui/fonts';
 import {
@@ -6,13 +6,19 @@ import {
   KeyIcon,
   ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
-import { ArrowRightIcon } from '@heroicons/react/20/solid';
+import {
+  ArrowRightIcon,
+  EyeIcon,
+  EyeSlashIcon,
+} from '@heroicons/react/24/solid';
 import { Button } from './button';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/app/lib/actions';
+import { useState } from 'react';
 
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  const [showPassword, setShowPassword] = useState(false); // State to track password visibility
 
   return (
     <form action={dispatch} className="space-y-3">
@@ -49,15 +55,25 @@ export default function LoginForm() {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 pr-[40px] text-sm outline-2 placeholder:text-gray-500"
                 id="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 placeholder="Enter password"
                 required
                 minLength={6}
               />
-              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <label
+                htmlFor="password"
+                className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3"
+                onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state on click
+              >
+                {showPassword ? (
+                  <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+                ) : (
+                  <EyeIcon className="h-5 w-5 text-gray-500" />
+                )}
+              </label>
             </div>
           </div>
         </div>
