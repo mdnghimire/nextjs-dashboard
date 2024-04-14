@@ -1,5 +1,5 @@
 'use client';
-import { createInvoice } from '@/app/lib/action';
+import { createInvoice } from '@/app/lib/actions';
 import { CustomerField } from '@/app/lib/definitions';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
